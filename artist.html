@@ -17,12 +17,26 @@
 </head>
 
 <body>
-  <h1>Artist Name</h1>
-  <img src="https://placekitten.com/400/400" />
+  <h1>Artist Rank</h1>
+  <p class="description">Who's more popular on Spotify? Test your knowledge of what's hip and what's happening.</p>
+  <button>Submit</button>
+
+  <div class="artist" id="artist-a">
+  </div>
+
+  <div class="artist" id="artist-b">
+  </div>
 
 
+  <div class="background-image"></div>
 
   <script src="js/lodash.js"></script>
   <script src="js/artist.js"></script>
+
+  <script type="text/template" id="artist-template">
+    <h2 class="name"><%= name %></h2>
+    <img src="<%= images[0].url %>" />
+    <p class="popularity hidden"><%= popularity %></p>
+  </script>
 </body>
 </html>
