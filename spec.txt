@@ -1,0 +1,14 @@
+spec.txt
+
+Your task is to create an artist webpage using the public Spotify API. As a growth engineer at Zenefits you'll function with a good bit of autonomy, so we expect you to prioritize effectively, engage your creativity, and deliver a usable and aesthetically appealing product.
+
+To that end we'll keep the requirements minimal. Make it your own! But at the least check these boxes:
+
+* constrain all your work to one *webpage* only (no constraints on number of files)
+* display the artist name and image on the page
+* handle at least one user event
+* populate your data asynchronously using the linked [Spotify API](https://developer.spotify.com/web-api/endpoint-reference/)
+
+Feel free to use any tools at your disposal! At Zenefits we use [jQuery](http://code.jquery.com) and [Bootstrap](http://getbootstrap.com/getting-started/); we'd also recommend templating, for which you can use [lodash](https://lodash.com/) or your favorite front-end framework.
+
+We'll evaluate usability and aesthetics, code organization, feature selection, and level of completion. Please send back as soon as possible so we can review and move forward with the process. Folder should contain an `index.html` accessible from a static folder.  When you're done, `tar czf your_project.tgz your_project_folder` and send it back.
