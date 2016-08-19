@@ -1,19 +1,18 @@
-//game idea: predict which artist has a higher popularity score
-//check to avoid any equal popularity contests
-
 var Game = function() {
   this.initialize = function() {
-    this.getAllArtists();
     this.assignHandlers();
     
     this.artistTemplate = _.template($("#artist-template").html());
+    this.streak = 0;
 
-    setTimeout(this.populateArtists.bind(this), 3000);
+    this.getAllArtists().done(
+      this.populateArtists.bind(this)
+    );
   };
 
   this.getAllArtists = function() {
     var apiUrl = "https://api.spotify.com/v1/artists?ids=" + _.values(this.artistIds).join(",");
-    $.get(apiUrl, function(response) {
+    return $.get(apiUrl, function(response) {
       this.artists = _.map(response.artists, function(artist) {
         return _.pick(artist, ["name", "images", "popularity"]);
       });
@@ -24,27 +23,72 @@ var Game = function() {
     $(".artist").on("click", function() {
       $(".artist").removeClass("selected");
       $(this).addClass("selected");
+      $("button").prop("disabled", false);
     })
 
     $("button").on("click", this.revealPopularity.bind(this));
+    $(document).on("keypress", function(event) {
+      if(event.which === 13) {
+        this.revealPopularity();
+      }
+    }.bind(this));
   };
 
   this.revealPopularity = function() {
-    $(".popularity").removeClass("hidden");
+    var morePopularId, lessPopularId;
 
-    setTimeout(this.populateArtists.bind(this), 1000)
+    if (this.artistA.popularity > this.artistB.popularity) {
+      lessPopularId = "#artist-b";
+    } else {
+      lessPopularId = "#artist-a";
+    }
+
+    if($(lessPopularId).hasClass("selected")) {
+      this.streak = 0;
+    } else {
+      this.streak += 1;
+    };
+
+    var streakColor;
+
+    if(this.streak === 0) {
+      streakColor = "#000";
+    }
+
+    if(this.streak >= 1) {
+      streakColor = "#ac4";
+    }
+
+    if(this.streak >= 3) {
+      streakColor = "#8f0";
+    }
+
+    $("#streak").text(this.streak).css({color: streakColor});
+
+
+    $(lessPopularId).fadeTo(250, 0);
+    $("#artist-a").animate({left: 200}, {duration: 400})
+    $("#artist-b").animate({left: -200}, {duration: 400})
+
+    setTimeout(this.populateArtists.bind(this), 1200)
   };
 
   this.populateArtists = function () {
-    var artistA = this.getRandomArtist();
-    var artistB = this.getRandomArtist();
+    this.artistA = this.getRandomArtist();
+    this.artistB = this.getRandomArtist();
 
-    while (artistA.popularity === artistB.popularity) {
-      artistB = this.getRandomArtist();
+    while (this.artistA.popularity === this.artistB.popularity) {
+      this.artistB = this.getRandomArtist();
     }
 
-    $("#artist-a").html(this.artistTemplate(artistA));
-    $("#artist-b").html(this.artistTemplate(artistB));
+    $("#artist-a").html(this.artistTemplate(this.artistA));
+    $("#artist-b").html(this.artistTemplate(this.artistB));
+    $(".artist").removeClass("selected").css({
+      opacity: 1,
+      left: 0,
+      right: 0
+    });
+    $("button").prop("disabled", true);
   };
 
 

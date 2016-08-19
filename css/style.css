@@ -2,6 +2,130 @@ body {
   background-color: #eee;
 }
 
+h1 {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+#description-1 {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 22px;
+}
+
+#description-2 {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+h1, p {
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: 2px solid #ac4;
+  border-radius: 8px;
+  background-color: #ac4;
+  color: #333;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  box-shadow: 0 0 10px #8f0;
+}
+
+button:disabled {
+  border-color: #aaa;
+  background-color: #bbb;
+  box-shadow: 0 0 0;
+}
+
+#game-info {
+  text-align: center;
+  position: relative;
+  display: block;
+  margin: 20px auto;
+  width: 100px;
+}
+
+#streak {
+  position: absolute;
+  line-height: 28px;
+  font-size: 22px;
+  top: 0;
+  right: -20px;
+
+  text-shadow:
+    -1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.artists {
+  width: 700px;
+  margin: 25px auto;
+}
+
+.name {
+  margin-top: 10px;
+  font-size: 30px;
+  text-align: center;
+  color: #fafafa;
+  font-family: 'Roboto', sans-serif;
+
+  text-shadow:
+    -1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.artist {
+  position: relative;
+}
+
+#artist-a {
+  float: left;
+}
+
+#artist-b {
+  float: right;
+}
+
+.image-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+}
+
+img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: auto;
+  width: auto;
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.selected .image-container {
+  background-color: rgba(136, 255, 0, 0.50);
+  box-shadow: 0 0 25px #8f0;
+}
+
+.selected .name {
+  color: #8f0;
+}
+
 .background-image {
   position: absolute;
   z-index: -1;
@@ -12,12 +136,4 @@ body {
   background-image: url('../mountain.jpg');
   -webkit-filter: blur(10px) grayscale(60%);
   filter: blur(10px) grayscale(60%);
-}
-
-.popularity.hidden {
-  visibility: hidden;
-}
-
-.selected {
-  box-shadow: 0 0 10px #ac4;
 }

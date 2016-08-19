@@ -8,6 +8,7 @@
   <meta name="description" content="Spotify Artist Page">
   <meta name="author" content="ethancd">
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 
@@ -18,13 +19,20 @@
 
 <body>
   <h1>Artist Rank</h1>
-  <p class="description">Who's more popular on Spotify? Test your knowledge of what's hip and what's happening.</p>
-  <button>Submit</button>
-
-  <div class="artist" id="artist-a">
+  <p id="description-1">Who's more popular on Spotify?</p>
+  <p id="description-2">Test your knowledge of what's hip and what's happening.</p>
+  
+  <div id="game-info">
+    <button disabled="disabled">Guess</button>
+    <p id="streak"></p>
   </div>
 
-  <div class="artist" id="artist-b">
+  <div class="artists">
+    <div class="artist" id="artist-a">
+    </div>
+
+    <div class="artist" id="artist-b">
+    </div>
   </div>
 
 
@@ -34,9 +42,10 @@
   <script src="js/artist.js"></script>
 
   <script type="text/template" id="artist-template">
+    <div class="image-container">
+      <img src="<%= images[0].url %>" />
+    </div>
     <h2 class="name"><%= name %></h2>
-    <img src="<%= images[0].url %>" />
-    <p class="popularity hidden"><%= popularity %></p>
   </script>
 </body>
 </html>
