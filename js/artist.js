@@ -20,18 +20,11 @@ var Game = function() {
   };
 
   this.assignHandlers = function () {
-    $(".artist").on("click", function() {
+    $(".artist").on("click", function(event) {
       $(".artist").removeClass("selected");
-      $(this).addClass("selected");
-      $("button").prop("disabled", false);
-    })
-
-    $("button").on("click", this.revealPopularity.bind(this));
-    $(document).on("keypress", function(event) {
-      if(event.which === 13) {
-        this.revealPopularity();
-      }
-    }.bind(this));
+      $(event.target).closest(".artist").addClass("selected");
+      this.revealPopularity();
+    }.bind(this))
   };
 
   this.revealPopularity = function() {
@@ -45,8 +38,22 @@ var Game = function() {
 
     if($(lessPopularId).hasClass("selected")) {
       this.streak = 0;
+      $("#color-panel").animate({
+        "backgroundColor": "rgba(255, 0, 0, 0.25)"
+      }, 200, function() {
+        $("#color-panel").animate({
+          "backgroundColor": "rgba(255, 255, 255, 0)"
+        }, 200);
+      });
     } else {
       this.streak += 1;
+      $("#color-panel").animate({
+        "backgroundColor": "rgba(136, 255, 0, 0.25)"
+      }, 200, function() {
+        $("#color-panel").animate({
+          "backgroundColor": "rgba(255, 255, 255, 0)"
+        }, 200);
+      });
     };
 
     var streakColor;
@@ -63,7 +70,7 @@ var Game = function() {
       streakColor = "#8f0";
     }
 
-    $("#streak").text(this.streak).css({color: streakColor});
+    $("#streak").text(this.streak + " in a row").css({color: streakColor});
 
 
     $(lessPopularId).fadeTo(250, 0);

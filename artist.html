@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Spotify Artist Page</title>
-  <meta name="description" content="Spotify Artist Page">
+  <title>Artist Rank</title>
+  <meta name="description" content="Artist Rank">
   <meta name="author" content="ethancd">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -18,20 +18,19 @@
 </head>
 
 <body>
-  <h1>Artist Rank</h1>
-  <p id="description-1">Who's more popular on Spotify?</p>
-  <p id="description-2">Test your knowledge of what's hip and what's happening.</p>
-  
-  <div id="game-info">
-    <button disabled="disabled">Guess</button>
+  <div id="color-panel">
+    <h1>Artist Rank</h1>
+    <p id="description-1">Who's more popular on Spotify?</p>
+    <p id="description-2">Test your knowledge of what's hip and what's happening.</p>
+    
     <p id="streak"></p>
-  </div>
 
-  <div class="artists">
-    <div class="artist" id="artist-a">
-    </div>
+    <div class="artists">
+      <div class="artist" id="artist-a">
+      </div>
 
-    <div class="artist" id="artist-b">
+      <div class="artist" id="artist-b">
+      </div>
     </div>
   </div>
 
@@ -39,6 +38,7 @@
   <div class="background-image"></div>
 
   <script src="js/lodash.js"></script>
+  <script src="js/jquery.color-2.1.2.min.js"></script>
   <script src="js/artist.js"></script>
 
   <script type="text/template" id="artist-template">

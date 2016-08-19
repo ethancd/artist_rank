@@ -43,20 +43,12 @@ button:disabled {
   box-shadow: 0 0 0;
 }
 
-#game-info {
-  text-align: center;
-  position: relative;
+#streak {
   display: block;
   margin: 20px auto;
-  width: 100px;
-}
-
-#streak {
-  position: absolute;
-  line-height: 28px;
-  font-size: 22px;
-  top: 0;
-  right: -20px;
+  height: 30px;
+  font-size: 28px;
+  text-align: center;
 
   text-shadow:
     -1px -1px 0 #000,
@@ -67,7 +59,7 @@ button:disabled {
 
 .artists {
   width: 700px;
-  margin: 25px auto;
+  margin: auto;
 }
 
 .name {
@@ -124,6 +116,17 @@ img {
 
 .selected .name {
   color: #8f0;
+}
+
+#color-panel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .background-image {
