@@ -1,55 +1,31 @@
-body {
+html, body {
   background-color: #eee;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-  text-align: center;
   margin-top: 25px;
   font-size: 48px;
   font-weight: 700;
+  text-align: center;
 }
 
-#description-1 {
+.description {
   margin-top: 5px;
-  text-align: center;
   font-size: 22px;
-}
-
-#description-2 {
   text-align: center;
-  margin-top: 5px;
+}
+
+.description.sub-title {
   font-size: 18px;
-}
-
-h1, p {
-  font-family: 'Roboto', sans-serif;
-}
-
-button {
-  cursor: pointer;
-  border: 2px solid #ac4;
-  border-radius: 8px;
-  background-color: #ac4;
-  color: #333;
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-  outline: none;
-  box-shadow: 0 0 10px #8f0;
-}
-
-button:disabled {
-  border-color: #aaa;
-  background-color: #bbb;
-  box-shadow: 0 0 0;
 }
 
 #streak {
   display: block;
-  margin: 20px auto;
   height: 30px;
+  margin: 20px auto;
   font-size: 28px;
   text-align: center;
-
   text-shadow:
     -1px -1px 0 #000,
     -1px 1px 0 #000,
@@ -58,22 +34,8 @@ button:disabled {
 }
 
 .artists {
-  width: 700px;
   margin: auto;
-}
-
-.name {
-  margin-top: 10px;
-  font-size: 30px;
-  text-align: center;
-  color: #fafafa;
-  font-family: 'Roboto', sans-serif;
-
-  text-shadow:
-    -1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px -1px 0 #000,
-    1px 1px 0 #000;
+  width: 700px;
 }
 
 .artist {
@@ -88,62 +50,74 @@ button:disabled {
   float: right;
 }
 
-.image-container {
+.artist .name {
+  margin-top: 10px;
+  color: #fafafa;
+  font-size: 30px;
+  text-align: center;
+  text-shadow:
+    -1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px -1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.artist .image-container {
   position: relative;
-  width: 320px;
   height: 320px;
+  width: 320px;
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: 5px;
 }
 
-img {
+.artist .image-container img {
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  margin: auto;
+  top: 0;
   height: auto;
+  margin: auto;
   width: auto;
   max-height: 300px;
   max-width: 300px;
 }
 
-.correct .image-container {
-  background-color: rgba(136, 255, 0, 0.50);
+.artist.correct .image-container {
+  background-color: rgba(136, 255, 0, 0.5);
   box-shadow: 0 0 25px #8f0;
 }
 
-.correct .name {
+.artist.correct .name {
   color: #8f0;
 }
 
-.incorrect .image-container {
-  background-color: rgba(255, 0, 0, 0.50);
+.artist.incorrect .image-container {
+  background-color: rgba(255, 0, 0, 0.5);
   box-shadow: 0 0 25px #f00;
 }
 
-.incorrect .name {
+.artist.incorrect .name {
   color: #f00;
 }
 
 #color-panel {
-  height: 100%;
-  width: 100%;
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0);
 }
 
 .background-image {
-  position: absolute;
   z-index: -1;
+  position: absolute;
   top: 0;
-  width: 100%;
   height: 100%;
+  width: 100%;
   background-size: cover;
   background-image: url('../mountain.jpg');
   -webkit-filter: blur(10px) grayscale(60%);

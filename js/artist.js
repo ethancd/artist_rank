@@ -5,9 +5,8 @@ var Game = function() {
     this.artistTemplate = _.template($("#artist-template").html());
     this.streak = 0;
 
-    this.getAllArtists().done(
-      this.populateArtists.bind(this)
-    );
+    this.getAllArtists()
+      .done(this.populateArtists.bind(this));
   };
 
   this.getAllArtists = function() {
@@ -20,58 +19,7 @@ var Game = function() {
   };
 
   this.assignHandlers = function () {
-    $(".artist").on("click", function(event) {
-      this.revealPopularity(event);
-    }.bind(this))
-  };
-
-  this.revealPopularity = function(event) {
-    var selectedArtist = $(event.target).closest(".artist");
-    var morePopularId, lessPopularId;
-
-    if (this.artistA.popularity > this.artistB.popularity) {
-      lessPopularId = "artist-b";
-    } else {
-      lessPopularId = "artist-a";
-    }
-
-    if(selectedArtist.attr("id") === lessPopularId) {
-      selectedArtist.addClass("incorrect");
-      this.streak = 0;
-      $("#color-panel").animate({
-        "backgroundColor": "rgba(255, 0, 0, 0.25)"
-      }, 200, function() {
-        $("#color-panel").animate({
-          "backgroundColor": "rgba(255, 255, 255, 0)"
-        }, 200);
-      });
-    } else {
-      selectedArtist.addClass("correct");
-      this.streak += 1;
-      $("#color-panel").animate({
-        "backgroundColor": "rgba(136, 255, 0, 0.25)"
-      }, 200, function() {
-        $("#color-panel").animate({
-          "backgroundColor": "rgba(255, 255, 255, 0)"
-        }, 200);
-      });
-    };
-
-    var streakColor;
-
-    if(this.streak === 0) {
-      streakColor = "#000";
-    } else {
-      streakColor = "#8f0";
-    }
-
-    $("#streak").text(this.streak + " in a row").css({color: streakColor});
-
-    $("#" + lessPopularId).fadeTo(250, 0);
-    $("#artist-a").animate({left: 200}, {duration: 400})
-    $("#artist-b").animate({left: -200}, {duration: 400})
-
-    setTimeout(this.populateArtists.bind(this), 1200)
+    $(".artist").on("click", this.respondToClick.bind(this));
   };
 
   this.populateArtists = function () {
@@ -82,19 +30,88 @@ var Game = function() {
       this.artistB = this.getRandomArtist();
     }
 
+    this.renderArtists();
+  };
+
+  this.getRandomArtist = function () {
+    return this.artists[Math.floor(Math.random() * this.artists.length)];
+  };
+
+  this.renderArtists = function() {
     $("#artist-a").html(this.artistTemplate(this.artistA));
     $("#artist-b").html(this.artistTemplate(this.artistB));
-    $(".artist").removeClass("correct incorrect").css({
+    $(".artist").removeClass("correct incorrect disabled").css({
       opacity: 1,
       left: 0,
       right: 0
     });
-    $("button").prop("disabled", true);
+  }
+
+  this.respondToClick = function(event) {
+    var selectedArtist = $(event.target).closest(".artist");
+    var lessPopularId = (this.artistA.popularity > this.artistB.popularity) ? "artist-b" : "artist-a";
+
+    if(selectedArtist.hasClass("disabled")) {
+      return;
+    }
+
+    this.adjudicateChoice(selectedArtist, lessPopularId);
+    this.renderChoice(lessPopularId);
+    this.disableArtists();
+
+    setTimeout(this.populateArtists.bind(this), 1200)
   };
 
+  this.adjudicateChoice = function(selectedArtist, lessPopularId) {
+    if (selectedArtist.attr("id") === lessPopularId) {
+      this.markIncorrect(selectedArtist);
+    } else {
+      this.markCorrect(selectedArtist);
+    }
+  };
 
-  this.getRandomArtist = function () {
-    return this.artists[Math.floor(Math.random() * this.artists.length)];
+  this.renderChoice = function(lessPopularId) {
+    var streakColor = (this.streak === 0) ? "#000" : "#8f0";
+    $("#streak").text(this.streak + " in a row").css({color: streakColor});
+
+    $("#" + lessPopularId).fadeTo(250, 0);
+    $("#artist-a").animate({left: 200}, {duration: 400})
+    $("#artist-b").animate({left: -200}, {duration: 400})
+  };
+
+  this.disableArtists = function() {
+    $(".artist").addClass("disabled");
+  };
+
+  this.markIncorrect = function(selectedArtist) {
+    selectedArtist.addClass("incorrect");
+    this.streak = 0;
+    this.flashRed();
+  };
+
+  this.markCorrect = function(selectedArtist) {
+    selectedArtist.addClass("correct");
+    this.streak += 1;
+    this.flashGreen();
+  };
+
+  this.flashRed = function() {
+    this.flash("255, 0, 0");
+  };
+
+  this.flashGreen = function() {
+    this.flash("136, 255, 0");
+  };
+
+  this.flash = function(color) {
+    this.animateBackgroundColor(color)
+      .done(this.animateBackgroundColor("255, 255, 255"));
+  };
+
+  this.animateBackgroundColor = function(color) {
+    return $("#color-panel").animate({
+      "backgroundColor": "rgba(" + color + ", 0.25)"
+    }, 200).promise();
   };
 
   this.artistIds = {
