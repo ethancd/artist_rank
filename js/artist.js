@@ -21,22 +21,22 @@ var Game = function() {
 
   this.assignHandlers = function () {
     $(".artist").on("click", function(event) {
-      $(".artist").removeClass("selected");
-      $(event.target).closest(".artist").addClass("selected");
-      this.revealPopularity();
+      this.revealPopularity(event);
     }.bind(this))
   };
 
-  this.revealPopularity = function() {
+  this.revealPopularity = function(event) {
+    var selectedArtist = $(event.target).closest(".artist");
     var morePopularId, lessPopularId;
 
     if (this.artistA.popularity > this.artistB.popularity) {
-      lessPopularId = "#artist-b";
+      lessPopularId = "artist-b";
     } else {
-      lessPopularId = "#artist-a";
+      lessPopularId = "artist-a";
     }
 
-    if($(lessPopularId).hasClass("selected")) {
+    if(selectedArtist.attr("id") === lessPopularId) {
+      selectedArtist.addClass("incorrect");
       this.streak = 0;
       $("#color-panel").animate({
         "backgroundColor": "rgba(255, 0, 0, 0.25)"
@@ -46,6 +46,7 @@ var Game = function() {
         }, 200);
       });
     } else {
+      selectedArtist.addClass("correct");
       this.streak += 1;
       $("#color-panel").animate({
         "backgroundColor": "rgba(136, 255, 0, 0.25)"
@@ -72,8 +73,7 @@ var Game = function() {
 
     $("#streak").text(this.streak + " in a row").css({color: streakColor});
 
-
-    $(lessPopularId).fadeTo(250, 0);
+    $("#" + lessPopularId).fadeTo(250, 0);
     $("#artist-a").animate({left: 200}, {duration: 400})
     $("#artist-b").animate({left: -200}, {duration: 400})
 
@@ -90,7 +90,7 @@ var Game = function() {
 
     $("#artist-a").html(this.artistTemplate(this.artistA));
     $("#artist-b").html(this.artistTemplate(this.artistB));
-    $(".artist").removeClass("selected").css({
+    $(".artist").removeClass("correct incorrect").css({
       opacity: 1,
       left: 0,
       right: 0

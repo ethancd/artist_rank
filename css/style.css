@@ -109,13 +109,22 @@ img {
   max-width: 300px;
 }
 
-.selected .image-container {
+.correct .image-container {
   background-color: rgba(136, 255, 0, 0.50);
   box-shadow: 0 0 25px #8f0;
 }
 
-.selected .name {
+.correct .name {
   color: #8f0;
+}
+
+.incorrect .image-container {
+  background-color: rgba(255, 0, 0, 0.50);
+  box-shadow: 0 0 25px #f00;
+}
+
+.incorrect .name {
+  color: #f00;
 }
 
 #color-panel {
