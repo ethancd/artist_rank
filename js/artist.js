@@ -61,13 +61,7 @@ var Game = function() {
 
     if(this.streak === 0) {
       streakColor = "#000";
-    }
-
-    if(this.streak >= 1) {
-      streakColor = "#ac4";
-    }
-
-    if(this.streak >= 3) {
+    } else {
       streakColor = "#8f0";
     }
 
